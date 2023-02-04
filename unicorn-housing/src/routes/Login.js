@@ -1,15 +1,16 @@
-import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Login = () => {
-  const navigate = useNavigate();
+  const { loginWithRedirect } = useAuth0();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      await fetch('http://localhost:3001/login', { mode: 'no-cors'}).then((response) => {
-        console.log(response)
-      })
-      navigate("/home");
+      await loginWithRedirect({
+        appState: {
+          returnTo: "/somewehre",
+        },
+      });
     } catch (error) {
       console.log(error);
     }
@@ -19,7 +20,7 @@ const Login = () => {
     <div class="bg-rainbow w-screen h-screen bg-cover bg-no-repeat">
       <div className="text-center flex flex-col justify-center h-1/2 w-auto">
         <h1 className="font-wendy text-white text-base sm:text-5xl pt-24 font-black">
-          🚀Welcome to Unicorn Housing🚀
+        🦄Welcome to Unicorn Housing🦄
         </h1>
 
         <span className="flex justify-center sm:mt-14 mt-4 ">
