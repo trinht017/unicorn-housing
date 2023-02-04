@@ -61,7 +61,7 @@ const Houses = () => {
 
   return (
     <div>
-      <div class='grid grid-flow-col auto-cols-max'>
+      <div class='grid grid-cols-3 gap-4'>
         {list.map((val, index) => {
           return (
             <House val={val} index={index} />

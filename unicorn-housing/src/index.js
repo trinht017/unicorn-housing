@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './routes/Login';
-import Houses from './components/Houses';
+import Dashboard from './routes/Dashboard';
 import "./index.css"
 
 const router = createBrowserRouter([
@@ -12,7 +12,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <Houses />,
+    element: <Dashboard />,
   },
 ]);
 
