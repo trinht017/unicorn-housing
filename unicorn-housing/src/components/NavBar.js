@@ -9,8 +9,8 @@ const NavBar = () => {
     const { logout } = useAuth0();
 
     return (
-        <div className=" z-50 sticky top-0 w-full flex flex-row h-20 justify-between items-center align-middle text-black shadow-lg bg-rainbow bg-cover bg-no-repeat">
-            <div className="flex flex-row items-center ml-10">
+        <div className="z-50 sticky top-0 w-full flex flex-row h-20 justify-between items-center align-middle text-black backdrop-filter backdrop-blur-xl bg-white bg-opacity-60">
+            <div className="flex flex-row items-center ml-10"> 
                 <ul class='flex gap-4 text-lg'>
                     <li>
                         <Link to='/home'>Home</Link>
@@ -21,15 +21,12 @@ const NavBar = () => {
                     <li>
                         <Link to='/message'>Message</Link>
                     </li>
-                    <li>
-                        <Link to='/account'>My Account</Link>
-                    </li>
                 </ul>
             </div>
 
             <div onClick={() => {
                 navigate("/home");
-            }} className="flex -ml-28 text-bold text-xl md:text-4xl cursor-pointer">
+            }} className="flex ml-20 text-bold text-xl md:text-4xl cursor-pointer">
 
                 <h1>Unicorn</h1>
                 <img class="h-12 w-12" src={unicornLogo} alt="" />
@@ -40,6 +37,9 @@ const NavBar = () => {
                 <ul class='flex gap-4 text-lg'>
                     <li>
                         <Link to='/userlisting'>My Listings</Link>
+                    </li>
+                    <li>
+                        <Link to='/account'>My Account</Link>
                     </li>
                     <li>
                         <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
