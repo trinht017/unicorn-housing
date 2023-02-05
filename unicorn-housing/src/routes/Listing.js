@@ -1,17 +1,53 @@
 import NavBar from '../components/NavBar'
 import houseImg from '../images/p-1.png'
+import { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router'
+import axios from 'axios'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const Listing = () => {
+    const [val, setVal] = useState({})
+    let { id } = useParams();
+    let navigate = useNavigate();
+    const { getAccessTokenSilently, user } = useAuth0();
 
-    let val = {
-        id: 1,
-        images: ["../images/p-1.png"],
-        address: "210 Zirak Road, Canada",
-        price: 3700,
-        name: "Clemson Edge",
-        bedBath: "2 Bed 2 Bath",
-        description: "Located near the Clemson lake right on the beach etc",
-        author: "Lucas Boyer"
+    useEffect(() => {
+        axios
+            .get(`http://localhost:3001/postings/${id}`)
+            .then((res) => {
+                setVal(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
+    let deleteListing = async () => {
+        try {
+            const token = await getAccessTokenSilently({
+                authorizationParams: {
+                    audience: 'https://unicorn-api.com',
+                },
+            });
+            const res = await axios
+            .delete(`http://localhost:3001/postings/${id}`, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                }
+            })
+
+            console.log(res)
+            navigate('/')
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    let renderDelete = () => {
+        if (val.author === user.email) 
+            return (
+                <button onClick={deleteListing} class='bg-red-500 m-3 p-3 rounded-md'>Delete Listing</button>
+            )
     }
 
     return (
@@ -26,14 +62,15 @@ const Listing = () => {
                     </div>
                     <div class="p-2 flex flex-col">
                         <div class="text-lg">
-                            <p class="font-bold p-2">${(val.price).toLocaleString()}/month</p>
+                            {val.price ? <p class="font-bold p-2">${(val.price).toLocaleString()}/month</p> : null}
+                            <p class="underline">{val.title}</p>
                             <p>Listing made by: {val.author}</p>
-                            <div class="flex flex-row gap-3">
-                                <p>{val.name}</p>
-                                <p>|</p>
-                                <p>{val.bedBath}</p>
-                            </div>
                             <p>{val.address} </p>
+                            <div class="flex flex-row gap-3">
+                                <p>{val.bed} Bed</p>
+                                <p>|</p>
+                                <p>{val.bath} Bath</p>
+                            </div>  
                             <p>{val.description} </p>
                         </div>
 
@@ -45,6 +82,8 @@ const Listing = () => {
                                 Request
                             </button>
                         </div>
+
+                        {renderDelete()}
                     </div>
                 </div>
             </div>

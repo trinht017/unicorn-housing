@@ -2,6 +2,7 @@ const Posting = require('../models/posting');
 
 module.exports.index = async (req, res) => {
   const postings = await Posting.find({});
+  console.log(req);
   res.json(postings);
 };
 

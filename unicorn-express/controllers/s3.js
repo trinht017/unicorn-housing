@@ -37,7 +37,6 @@ module.exports.listImages = (req, res, next) => {
             } else {
                 var imageUrls = [];
                 for(var object of data["Contents"]) {
-                    console.log(object)
                     key = object["Key"]
                     params = { Bucket: process.env.S3_POSTING_IMAGE_BUCKET, Key: key, Expires: 60 * 60 * 2}
                     imageUrls.push(S3.getSignedUrl('getObject', params))

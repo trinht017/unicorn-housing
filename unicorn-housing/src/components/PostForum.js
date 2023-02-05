@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react"
 import axios from 'axios';
 
@@ -15,6 +16,8 @@ const PostForum = () => {
     })
 
     let { user } = useAuth0()
+    let navigate = useNavigate()
+    const { getAccessTokenSilently } = useAuth0();
 
     const [uploadedFiles, setUploadedFiles] = useState([])
 
@@ -38,21 +41,38 @@ const PostForum = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const res = await axios.post('http://localhost:3001/postings', listing);
-        const postingID = res.data._id
-        const res2 = await axios.post('http://localhost:3001/postings/images', {"numImages":uploadedFiles.length, "postingID": postingID});
-        const s3SignedUploadUrls = res2.data;
-
-        for(var i = 0; i < uploadedFiles.length; i++){
-            var options = {
-                params: { Key: `${postingID}-${i+1}.png`, ContentType: uploadedFiles[i].type },
-                headers: { 'Content-Type': uploadedFiles[i].type }
-              };
-            try {
-                await axios.put(s3SignedUploadUrls[i], uploadedFiles[i], options)
-            } catch (error) {
-                console.log(error);
+        try {
+            const token = await getAccessTokenSilently({
+                authorizationParams: {
+                    audience: 'https://unicorn-api.com',
+                },
+            });
+            const res = await axios.post('http://localhost:3001/postings', listing, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(res)
+            const postingID = res.data._id
+            const res2 = await axios.post('http://localhost:3001/postings/images', {"numImages":uploadedFiles.length, "postingID": postingID}, { headers: {
+                authorization: `Bearer ${token}`,
+            },});
+            const s3SignedUploadUrls = res2.data;
+    
+            for(var i = 0; i < uploadedFiles.length; i++){
+                var options = {
+                    params: { Key: `${postingID}-${i+1}.png`, ContentType: uploadedFiles[i].type },
+                    headers: { 'Content-Type': uploadedFiles[i].type }
+                  };
+                try {
+                    await axios.put(s3SignedUploadUrls[i], uploadedFiles[i], options)
+                } catch (error) {
+                    console.log(error);
+                }
             }
+            navigate('/')
+        } catch (error) {
+            console.log(error);
         }
     };
 
