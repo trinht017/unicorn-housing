@@ -1,12 +1,15 @@
 import NavBar from '../components/NavBar'
 import houseImg from '../images/p-1.png'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import axios from 'axios'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const Listing = () => {
     const [val, setVal] = useState({})
     let { id } = useParams();
+    let navigate = useNavigate();
+    const { getAccessTokenSilently, user } = useAuth0();
 
     useEffect(() => {
         axios
@@ -17,8 +20,35 @@ const Listing = () => {
             .catch((error) => {
                 console.log(error);
             });
-    });
+    }, []);
 
+    let deleteListing = async () => {
+        try {
+            const token = await getAccessTokenSilently({
+                authorizationParams: {
+                    audience: 'https://unicorn-api.com',
+                },
+            });
+            const res = await axios
+            .delete(`http://localhost:3001/postings/${id}`, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                }
+            })
+
+            console.log(res)
+            navigate('/')
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    let renderDelete = () => {
+        if (val.author === user.email) 
+            return (
+                <button onClick={deleteListing} class='bg-red-500 m-3 p-3 rounded-md'>Delete Listing</button>
+            )
+    }
 
     return (
         <div class="w-full h-full bg-blue-200">
@@ -52,6 +82,8 @@ const Listing = () => {
                                 Request
                             </button>
                         </div>
+
+                        {renderDelete()}
                     </div>
                 </div>
             </div>

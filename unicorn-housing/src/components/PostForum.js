@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react"
 import axios from 'axios';
 
@@ -15,6 +16,8 @@ const PostForum = () => {
     })
 
     let { user } = useAuth0()
+    let navigate = useNavigate()
+    const { getAccessTokenSilently } = useAuth0();
 
     const [uploadedFiles, setUploadedFiles] = useState([])
 
@@ -48,8 +51,22 @@ const PostForum = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const res = await axios.post('http://localhost:3001/postings', listing);
-        console.log(res)
+        try {
+            const token = await getAccessTokenSilently({
+                authorizationParams: {
+                    audience: 'https://unicorn-api.com',
+                },
+            });
+            const res = await axios.post('http://localhost:3001/postings', listing, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(res)
+            navigate('/')
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (

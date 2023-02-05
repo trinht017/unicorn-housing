@@ -13,16 +13,16 @@ const Houses = () => {
   useEffect(() => {
     const getHouses = async () => {
       try {
-        // const token = await getAccessTokenSilently({
-        //   authorizationParams: {
-        //     audience: 'https://unicorn-api.com',
-        //   },
-        // });
-        // await console.log(token);
+        const token = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: 'https://unicorn-api.com',
+          },
+        });
+        await console.log(token);
         const response = await axios.get('http://localhost:3001/postings', {
-          // headers: {
-          //   authorization: `Bearer ${token}`,
-          // },
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
         });
         setPostings(response.data);
       } catch (error) {
