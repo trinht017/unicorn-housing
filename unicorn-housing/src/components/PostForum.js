@@ -1,6 +1,5 @@
 import { useState } from "react"
 
-
 const PostForum = () => {
     let [listing, setListing] = useState({
         author: "",
@@ -13,10 +12,20 @@ const PostForum = () => {
 
     const [uploadedFiles, setUploadedFiles] = useState([])
 
-    const handleUploadFiles = (files) => {
+    const convertToBase64 = (file) => {
+        return new Promise(resolve => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                resolve(reader.result);
+            }
+        })
+    }
+
+    const handleUploadFiles = async (files) => {
         const uploaded = [...uploadedFiles];
-        files.some((file) => {
-            uploaded.push(file);
+        await files.forEach(async (file) => {
+            uploaded.push(await convertToBase64(file));
         })
         setUploadedFiles(uploaded);
     }
@@ -34,8 +43,8 @@ const PostForum = () => {
     const handleSubmit = (e) => {
         // prevents the submit button from refreshing the page
         e.preventDefault();
-        setListing({ ...listing, ["images"]: uploadedFiles})
-        console.log(listing);
+        console.log(uploadedFiles)
+        setListing({ ...listing, images: uploadedFiles})
     };
 
     return (
@@ -43,7 +52,7 @@ const PostForum = () => {
             <h1 class="text-5xl text-center m-3">
                 Create a housing posting
             </h1>
-            <form onSubmit={handleSubmit} class='m-auto'>
+            <form class='m-auto'>
                 <div>
                     <label
                         className="block text-sm font-medium text-black"
@@ -143,6 +152,7 @@ const PostForum = () => {
                 <div className="flex items-center justify-center mt-4">
                     <button
                         type="submit"
+                        onClick={handleSubmit}
                         className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
                     >
                         Submit
