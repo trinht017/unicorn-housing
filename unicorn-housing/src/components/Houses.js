@@ -13,16 +13,16 @@ const Houses = () => {
   useEffect(() => {
     const getHouses = async () => {
       try {
-        const token = await getAccessTokenSilently({
-          authorizationParams: {
-            audience: 'https://unicorn-api.com',
-          },
-        });
-        await console.log(token);
+        // const token = await getAccessTokenSilently({
+        //   authorizationParams: {
+        //     audience: 'https://unicorn-api.com',
+        //   },
+        // });
+        // await console.log(token);
         const response = await axios.get('http://localhost:3001/postings', {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
+          // headers: {
+          //   authorization: `Bearer ${token}`,
+          // },
         });
         setPostings(response.data);
       } catch (error) {
@@ -38,7 +38,11 @@ const Houses = () => {
       <div class='grid grid-cols-3 gap-8 m-4 p-3'>
         {postings.map((posting) => {
           return (
-            <Link to={`/listing/${posting._id}`} element={<Listing />} key={posting._id}>
+            <Link
+              to={`/listing/${posting._id}`}
+              element={<Listing />}
+              key={posting._id}
+            >
               <House val={posting} index={posting._id} />
             </Link>
           );
