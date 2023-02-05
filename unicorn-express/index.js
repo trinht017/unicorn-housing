@@ -51,8 +51,6 @@ app.use((err, req, res, next) => {
   return res.status(statusCode);
 });
 
-const postingRoutes = require('./routes/postings')
-
 app.use('/postings', postingRoutes)
 
 const port = process.env.PORT || 3001;
