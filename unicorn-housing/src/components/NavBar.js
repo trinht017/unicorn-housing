@@ -9,9 +9,9 @@ const NavBar = () => {
   const { isAuthenticated } = useAuth0();
 
   return (
-    <div className='z-50 sticky top-0 w-full flex flex-row h-20 justify-between items-center align-middle text-black shadow-lg bg-rainbow bg-cover bg-no-repeat'>
-      <div className='flex flex-row items-center h-20 ml-6 pl-6 md:pl-1 md:w-72 w-48'>
-        <ul class='flex gap-4'>
+    <div className='z-50 sticky top-0 w-full flex flex-row h-20 justify-between items-center align-middle text-black backdrop-filter backdrop-blur-xl bg-white bg-opacity-60'>
+      <div className='flex flex-row items-center ml-10'>
+        <ul class='flex gap-4 text-lg'>
           <li>
             <Link to='/home'>Home</Link>
           </li>
@@ -20,9 +20,6 @@ const NavBar = () => {
           </li>
           <li>
             <Link to='/message'>Message</Link>
-          </li>
-          <li>
-            <Link to='/account'>My Account</Link>
           </li>
         </ul>
       </div>

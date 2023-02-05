@@ -39,8 +39,8 @@ const PostForum = () => {
     };
 
     return (
-        <div class="bg-violet-500 w-3/4 flex flex-col content-center m-auto">
-            <h1>
+        <div class="shadow-md bg-gray-100 rounded-md p-2 w-2/3 flex flex-col content-center m-auto">
+            <h1 class="text-5xl text-center m-3">
                 Create a housing posting
             </h1>
             <form onSubmit={handleSubmit} class='m-auto'>
@@ -56,7 +56,7 @@ const PostForum = () => {
                             name="author"
                             value={listing.author}
                             onChange={handleChange}
-                            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            className="block w-full px-2 mt-1 border-indigo-500 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
                         />
                     </div>
                 </div>
@@ -72,7 +72,7 @@ const PostForum = () => {
                             name="address"
                             value={listing.address}
                             onChange={handleChange}
-                            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            className="block w-full px-2 mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         />
                     </div>
                 </div>
@@ -88,7 +88,7 @@ const PostForum = () => {
                             name="price"
                             value={listing.price}
                             onChange={handleChange}
-                            className="block w-full mt-1 border-black rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            className="block w-full px-2 mt-1 border-black rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         />
                     </div>
                 </div>
@@ -104,7 +104,7 @@ const PostForum = () => {
                             name="roomBath"
                             value={listing.roomBath}
                             onChange={handleChange}
-                            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            className="block w-full px-2 mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         />
                     </div>
                 </div>
@@ -114,13 +114,12 @@ const PostForum = () => {
                     >
                         Description
                     </label>
-                    <div className="flex flex-col items-start">
-                        <input
-                            type="text"
+                    <div>
+                        <textarea
                             name="description"
                             value={listing.description}
                             onChange={handleChange}
-                            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            className="w-full px-2 content-left h-32 mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         />
                     </div>
                 </div>
@@ -137,11 +136,11 @@ const PostForum = () => {
                             multiple
                             name="images"
                             onChange={handleFileEvent}
-                            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            className="block px-2 w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         />
                     </div>
                 </div>
-                <div className="flex items-center justify-end mt-4">
+                <div className="flex items-center justify-center mt-4">
                     <button
                         type="submit"
                         className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"

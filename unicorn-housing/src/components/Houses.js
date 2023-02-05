@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
 import House from './House.js';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import Listing from '../routes/Listing.js';
 
 const Houses = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -31,65 +33,85 @@ const Houses = () => {
   let list = [
     {
       id: 1,
-      cover: '../images/p-1.png',
-      name: 'Red Carpet Real Estate',
-      location: '210 Zirak Road, Canada',
-      category: 'For Rent',
-      price: '$3,700',
-      type: 'Apartment',
+      images: ['../images/p-1.png'],
+      address: '210 Zirak Road, Canada',
+      price: 3700,
+      name: 'Clemson Edge',
+      bedBath: '2 Bed 2 Bath',
+      description: 'Located near the Clemson lake right on the beach etc',
+      author: 'Lucas Boyer',
     },
     {
       id: 2,
-      cover: '../images/p-2.png',
-      name: 'Fairmount Properties',
-      location: '5698 Zirak Road, NewYork',
-      category: 'For Sale',
-      price: '$9,750',
-      type: 'Condos',
+      images: ['../images/p-1.png'],
+      address: '210 Zirak Road, Canada',
+      price: 3700,
+      name: 'Clemson Edge',
+      bedBath: '2 Bed 2 Bath',
+      description: 'Located near the Clemson lake right on the beach etc',
+      author: 'Lucas Boyer',
     },
     {
       id: 3,
-      cover: '../images/p-7.png',
-      name: 'The Real Estate Corner',
-      location: '5624 Mooker Market, USA',
-      category: 'For Rent',
-      price: '$5,860',
-      type: 'Offices',
+      images: ['../images/p-1.png'],
+      address: '210 Zirak Road, Canada',
+      price: 3700,
+      name: 'Clemson Edge',
+      bedBath: '2 Bed 2 Bath',
+      description: 'Located near the Clemson lake right on the beach etc',
+      author: 'Lucas Boyer',
     },
     {
       id: 4,
-      cover: '../images/p-4.png',
-      name: 'Herringbone Realty',
-      location: '5621 Liverpool, London',
-      category: 'For Sale',
-      price: '$7,540',
-      type: 'Homes & Villas',
+      images: ['../images/p-1.png'],
+      address: '210 Zirak Road, Canada',
+      price: 3700,
+      name: 'Clemson Edge',
+      bedBath: '2 Bed 2 Bath',
+      description: 'Located near the Clemson lake right on the beach etc',
+      author: 'Lucas Boyer',
     },
     {
       id: 5,
-      cover: '../images/p-5.png',
-      name: 'Brick Lane Realty',
-      location: '210 Montreal Road, Canada',
-      category: 'For Rent',
-      price: '$4,850',
-      type: 'Commercial',
+      images: ['../images/p-1.png'],
+      address: '210 Zirak Road, Canada',
+      price: 3700,
+      name: 'Clemson Edge',
+      bedBath: '2 Bed 2 Bath',
+      description: 'Located near the Clemson lake right on the beach etc',
+      author: 'Lucas Boyer',
     },
     {
       id: 6,
-      cover: '../images/p-6.png',
-      name: 'Banyon Tree Realty',
-      location: '210 Zirak Road, Canada',
-      category: 'For Sale',
-      price: '$2,742',
-      type: 'Apartment',
+      images: ['../images/p-1.png'],
+      address: '210 Zirak Road, Canada',
+      price: 3700,
+      name: 'Clemson Edge',
+      bedBath: '2 Bed 2 Bath',
+      description: 'Located near the Clemson lake right on the beach etc',
+      author: 'Lucas Boyer',
+    },
+    {
+      id: 7,
+      images: ['../images/p-1.png'],
+      address: '210 Zirak Road, Canada',
+      price: 3700,
+      name: 'Clemson Edge',
+      bedBath: '2 Bed 2 Bath',
+      description: 'Located near the Clemson lake right on the beach etc',
+      author: 'Lucas Boyer',
     },
   ];
 
   return (
     <div>
-      <div class='grid grid-cols-3 gap-4'>
+      <div class='grid grid-cols-3 gap-8 m-4 p-3'>
         {postings.map((val, index) => {
-          return <House val={val} index={index} />;
+          return (
+            <Link to={`/listing/${val.id}`} element={<Listing />} key={index}>
+              <House val={val} index={index} />
+            </Link>
+          );
         })}
       </div>
     </div>

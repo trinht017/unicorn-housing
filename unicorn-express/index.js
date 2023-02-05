@@ -1,3 +1,4 @@
+const { application } = require('express');
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -67,6 +68,8 @@ app.use((err, req, res, next) => {
   if (!err.message) err.message = 'Oh No, Someting Went Wrong!';
   return res.status(statusCode);
 });
+
+app.use('/postings', postingRoutes)
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`listening on port ${port}`));
