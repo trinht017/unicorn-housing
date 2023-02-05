@@ -1,5 +1,5 @@
 import NavBar from '../components/NavBar'
-import houseImg from '../images/p-1.png'
+import placeholder from '../images/placeholder.png'
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import axios from 'axios'
@@ -7,9 +7,10 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 const Listing = () => {
     const [val, setVal] = useState({})
+    const [imageUrls, setImageUrls] = useState([])
     let { id } = useParams();
     let navigate = useNavigate();
-    const { getAccessTokenSilently, user } = useAuth0();
+    const { getAccessTokenSilently, user, isLoading } = useAuth0();
 
     useEffect(() => {
         axios
@@ -20,6 +21,18 @@ const Listing = () => {
             .catch((error) => {
                 console.log(error);
             });
+        axios
+            .get(`http://localhost:3001/postings/images/${id}`)
+            .then((res) => {
+                if(res.data != ""){
+                    setImageUrls(res.data)
+                } else {
+                    setImageUrls([placeholder])
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }, []);
 
     let deleteListing = async () => {
@@ -44,10 +57,12 @@ const Listing = () => {
     }
 
     let renderDelete = () => {
-        if (val.author === user.email) 
-            return (
-                <button onClick={deleteListing} class='bg-red-500 m-3 p-3 rounded-md'>Delete Listing</button>
-            )
+        if(!isLoading){
+            if (val.author === user.email) 
+                return (
+                    <button onClick={deleteListing} class='bg-red-500 m-3 p-3 rounded-md'>Delete Listing</button>
+                )
+        }
     }
 
     return (
@@ -55,10 +70,8 @@ const Listing = () => {
             <NavBar />
             <div class="flex mt-6">
                 <div class="bg-white shadow-md content-center m-auto shadow-slate-400 rounded-lg flex flex-row max-h-screen">
-                    <div class="w-2/3 overflow-auto scroll-smooth">
-                        <img className='w-full rounded-t-lg' src={houseImg} alt='' />
-                        <img className='w-full rounded-t-lg' src={houseImg} alt='' />
-                        <img className='w-full rounded-t-lg' src={houseImg} alt='' />
+                    <div class="w-2/3 overflow-auto scroll-smooth rounded-l-lg">
+                        {imageUrls.map(url => <img className='w-full' src={url} alt='' />)}
                     </div>
                     <div class="p-2 flex flex-col">
                         <div class="text-lg">
