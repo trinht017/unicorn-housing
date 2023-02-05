@@ -14,12 +14,15 @@ const NavBar = () => {
                     <li>
                         <Link to='/'>Home</Link>
                     </li>
+                    {isAuthenticated && (
                     <li>
                         <Link to='/post'>Post</Link>
                     </li>
+                    )}
+                    {isAuthenticated && (
                     <li>
                         <Link to='/message'>Message</Link>
-                    </li>
+                    </li> )}
                 </ul>
             </div>
 

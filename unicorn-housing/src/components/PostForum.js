@@ -1,13 +1,15 @@
 import { useState } from "react"
+import { useAuth0 } from "@auth0/auth0-react"
 
 const PostForum = () => {
+    const { user } = useAuth0();
     let [listing, setListing] = useState({
-        author: "",
+        author: user.name,
         address: "",
         price: 0.0,
         roomBath: "",
         description: "",
-        images: []
+        title: ""
     })
 
     const [uploadedFiles, setUploadedFiles] = useState([])
@@ -32,7 +34,6 @@ const PostForum = () => {
 
     const handleFileEvent = (e) => {
         const chosenFiles = Array.prototype.slice.call(e.target.files)
-        console.log(chosenFiles)
         handleUploadFiles(chosenFiles);
     }
 
@@ -43,8 +44,9 @@ const PostForum = () => {
     const handleSubmit = (e) => {
         // prevents the submit button from refreshing the page
         e.preventDefault();
+        //calls for s3 and backend
+        console.log(listing)
         console.log(uploadedFiles)
-        setListing({ ...listing, images: uploadedFiles})
     };
 
     return (
@@ -57,15 +59,15 @@ const PostForum = () => {
                     <label
                         className="block text-sm font-medium text-black"
                     >
-                        Author
+                        Location
                     </label>
                     <div className="flex flex-col items-start">
                         <input
                             type="text"
-                            name="author"
-                            value={listing.author}
+                            name="location"
+                            value={listing.location}
                             onChange={handleChange}
-                            className="block w-full px-2 mt-1 border-indigo-500 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                            className="block w-full px-2 mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         />
                     </div>
                 </div>
