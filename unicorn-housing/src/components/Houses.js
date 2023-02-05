@@ -14,12 +14,16 @@ const Houses = () => {
   useEffect(() => {
     const getHouses = async () => {
       try {
-        const token = await getAccessTokenSilently();
-        await console.log(token);
+        // const token = await getAccessTokenSilently({
+        //   authorizationParams: {
+        //     audience: 'https://unicorn-api.com',
+        //   },
+        // });
+        // await console.log(token);
         const response = await axios.get('http://localhost:3001/postings', {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
+          // headers: {
+          //   authorization: `Bearer ${token}`,
+          // },
         });
         setPostings(response.data);
       } catch (error) {
@@ -29,79 +33,6 @@ const Houses = () => {
 
     getHouses();
   }, [getAccessTokenSilently]);
-
-  let list = [
-    {
-      id: 1,
-      images: ['../images/p-1.png'],
-      address: '210 Zirak Road, Canada',
-      price: 3700,
-      name: 'Clemson Edge',
-      bedBath: '2 Bed 2 Bath',
-      description: 'Located near the Clemson lake right on the beach etc',
-      author: 'Lucas Boyer',
-    },
-    {
-      id: 2,
-      images: ['../images/p-1.png'],
-      address: '210 Zirak Road, Canada',
-      price: 3700,
-      name: 'Clemson Edge',
-      bedBath: '2 Bed 2 Bath',
-      description: 'Located near the Clemson lake right on the beach etc',
-      author: 'Lucas Boyer',
-    },
-    {
-      id: 3,
-      images: ['../images/p-1.png'],
-      address: '210 Zirak Road, Canada',
-      price: 3700,
-      name: 'Clemson Edge',
-      bedBath: '2 Bed 2 Bath',
-      description: 'Located near the Clemson lake right on the beach etc',
-      author: 'Lucas Boyer',
-    },
-    {
-      id: 4,
-      images: ['../images/p-1.png'],
-      address: '210 Zirak Road, Canada',
-      price: 3700,
-      name: 'Clemson Edge',
-      bedBath: '2 Bed 2 Bath',
-      description: 'Located near the Clemson lake right on the beach etc',
-      author: 'Lucas Boyer',
-    },
-    {
-      id: 5,
-      images: ['../images/p-1.png'],
-      address: '210 Zirak Road, Canada',
-      price: 3700,
-      name: 'Clemson Edge',
-      bedBath: '2 Bed 2 Bath',
-      description: 'Located near the Clemson lake right on the beach etc',
-      author: 'Lucas Boyer',
-    },
-    {
-      id: 6,
-      images: ['../images/p-1.png'],
-      address: '210 Zirak Road, Canada',
-      price: 3700,
-      name: 'Clemson Edge',
-      bedBath: '2 Bed 2 Bath',
-      description: 'Located near the Clemson lake right on the beach etc',
-      author: 'Lucas Boyer',
-    },
-    {
-      id: 7,
-      images: ['../images/p-1.png'],
-      address: '210 Zirak Road, Canada',
-      price: 3700,
-      name: 'Clemson Edge',
-      bedBath: '2 Bed 2 Bath',
-      description: 'Located near the Clemson lake right on the beach etc',
-      author: 'Lucas Boyer',
-    },
-  ];
 
   return (
     <div>

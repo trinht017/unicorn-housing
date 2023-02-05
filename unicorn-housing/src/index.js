@@ -19,12 +19,10 @@ const router = createBrowserRouter([
   {
     path: '/listing/:id',
     loader: async ({ request, params }) => {
-      return fetch(
-        `/fake/api/teams/${params.id}`,
-      );
+      return fetch(`/fake/api/teams/${params.id}`);
     },
-    element: <Listing/>,
-  }
+    element: <Listing />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -34,12 +32,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     // onRedirectCallback
     authorizationParams={{
       redirect_uri: window.location.origin,
-      audience: 'https://unicron-api.com',
-      scope: 'openid profile email',
+      audience: 'https://unicorn-api.com',
+      // scope: 'openid profile email',
     }}
 
     // redirecturi={window.location.origin}
-    // audience='https://unicron-api.com'
+    // audience='https://unicorn-api.com'
     // scope='openid profile email'
   >
     <RouterProvider router={router} />
