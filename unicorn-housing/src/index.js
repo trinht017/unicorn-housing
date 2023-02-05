@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './routes/Login';
-import Houses from './components/Houses';
+import Dashboard from './routes/Dashboard';
+import { Auth0Provider } from "@auth0/auth0-react";
 import "./index.css"
+import Post from './routes/Post';
 
 const router = createBrowserRouter([
   {
@@ -12,12 +14,22 @@ const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <Houses />,
+    element: <Dashboard />,
+  },
+  {
+    path: '/post',
+    element: <Post />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <Auth0Provider
+    domain="dev-ix13ko5ij4ojfhls.us.auth0.com"
+    clientId="c8Rrespf6YP8ZUC8fER9oYxuLulGryfL"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  >
+      <RouterProvider router={router} />
+  </Auth0Provider>
 );
