@@ -1,7 +1,7 @@
 import houseImg from '../images/p-1.png'
 
 const House = ({val}, index) => {
-   
+
     return (
         <div key={index} class="bg-white shadow-md shadow-slate-400 rounded-lg">
             <div >
