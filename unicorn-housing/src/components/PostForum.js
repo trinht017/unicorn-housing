@@ -1,16 +1,20 @@
 import { useState } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
+import axios from 'axios';
 
 const PostForum = () => {
-    const { user } = useAuth0();
+
     let [listing, setListing] = useState({
-        author: user.name,
+        author: "",
         address: "",
         price: 0.0,
-        roomBath: "",
+        bed: 0,
+        bath: 0,
         description: "",
         title: ""
     })
+
+    let { user } = useAuth0()
 
     const [uploadedFiles, setUploadedFiles] = useState([])
 
@@ -38,15 +42,14 @@ const PostForum = () => {
     }
 
     const handleChange = (event) => {
-        setListing({ ...listing, [event.target.name]: event.target.value });
+        setListing({ ...listing, [event.target.name]: event.target.value, ["author"]: user.name });
     }
 
-    const handleSubmit = (e) => {
-        // prevents the submit button from refreshing the page
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        //calls for s3 and backend
-        console.log(listing)
-        console.log(uploadedFiles)
+
+        const res = await axios.post('http://localhost:3001/postings', listing);
+        console.log(res)
     };
 
     return (
@@ -59,13 +62,13 @@ const PostForum = () => {
                     <label
                         className="block text-sm font-medium text-black"
                     >
-                        Location
+                        Title
                     </label>
                     <div className="flex flex-col items-start">
                         <input
                             type="text"
-                            name="location"
-                            value={listing.location}
+                            name="title"
+                            value={listing.title}
                             onChange={handleChange}
                             className="block w-full px-2 mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         />
@@ -103,20 +106,38 @@ const PostForum = () => {
                         />
                     </div>
                 </div>
-                <div className="mt-4">
-                    <label
-                        className="block text-sm font-medium text-black undefined"
-                    >
-                        Room and Bath
-                    </label>
-                    <div className="flex flex-col items-start">
-                        <input
-                            type="text"
-                            name="roomBath"
-                            value={listing.roomBath}
-                            onChange={handleChange}
-                            className="block w-full px-2 mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                        />
+                <div class="flex flex-row gap-10">
+                    <div className="mt-4">
+                        <label
+                            className="block text-sm font-medium text-black undefined"
+                        >
+                            Bed
+                        </label>
+                        <div className="flex flex-col items-start">
+                            <input
+                                type="number"
+                                name="bed"
+                                value={listing.bed}
+                                onChange={handleChange}
+                                className="block w-full px-2 mt-1 border-black rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            />
+                        </div>
+                    </div>
+                    <div className="mt-4">
+                        <label
+                            className="block text-sm font-medium text-black undefined"
+                        >
+                            Bath
+                        </label>
+                        <div className="flex flex-col items-start">
+                            <input
+                                type="number"
+                                name="bath"
+                                value={listing.bath}
+                                onChange={handleChange}
+                                className="block w-full px-2 mt-1 border-black rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="mt-4">

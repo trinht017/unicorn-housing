@@ -1,18 +1,24 @@
 import NavBar from '../components/NavBar'
 import houseImg from '../images/p-1.png'
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router'
+import axios from 'axios'
 
 const Listing = () => {
+    const [val, setVal] = useState({})
+    let { id } = useParams();
 
-    let val = {
-        id: 1,
-        images: ["../images/p-1.png"],
-        address: "210 Zirak Road, Canada",
-        price: 3700,
-        name: "Clemson Edge",
-        bedBath: "2 Bed 2 Bath",
-        description: "Located near the Clemson lake right on the beach etc",
-        author: "Lucas Boyer"
-    }
+    useEffect(() => {
+        axios
+            .get(`http://localhost:3001/postings/${id}`)
+            .then((res) => {
+                setVal(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    });
+
 
     return (
         <div class="w-full h-full bg-blue-200">
@@ -26,14 +32,15 @@ const Listing = () => {
                     </div>
                     <div class="p-2 flex flex-col">
                         <div class="text-lg">
-                            <p class="font-bold p-2">${(val.price).toLocaleString()}/month</p>
+                            {val.price ? <p class="font-bold p-2">${(val.price).toLocaleString()}/month</p> : null}
+                            <p class="underline">{val.title}</p>
                             <p>Listing made by: {val.author}</p>
-                            <div class="flex flex-row gap-3">
-                                <p>{val.name}</p>
-                                <p>|</p>
-                                <p>{val.bedBath}</p>
-                            </div>
                             <p>{val.address} </p>
+                            <div class="flex flex-row gap-3">
+                                <p>{val.bed} Bed</p>
+                                <p>|</p>
+                                <p>{val.bath} Bath</p>
+                            </div>  
                             <p>{val.description} </p>
                         </div>
 

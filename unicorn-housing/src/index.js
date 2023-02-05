@@ -6,6 +6,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import './index.css';
 import Post from './routes/Post';
 import Listing from './routes/Listing';
+import UserListings from './routes/UserListings';
+import Account from './routes/Account';
 
 const router = createBrowserRouter([
   {
@@ -18,10 +20,15 @@ const router = createBrowserRouter([
   },
   {
     path: '/listing/:id',
-    loader: async ({ request, params }) => {
-      return fetch(`/fake/api/teams/${params.id}`);
-    },
     element: <Listing />,
+  },
+  {
+    path: '/userListings',
+    element: <UserListings />,
+  },
+  {
+    path: '/myAccount',
+    element: <Account />,
   },
 ]);
 
