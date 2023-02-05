@@ -10,3 +10,19 @@ module.exports.validatePosting = (req, res, next) => {
     next();
   }
 };
+
+module.exports.isAuthor = async (req, res, next) => {
+  const { id } = req.params;
+  const posting = await Posting.findById(id);
+  if (!posting.author.equals(req.user._id)) {
+    return res.status(400).send('must be the author');
+  }
+  next();
+};
+
+module.exports.isLoggedIn = (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    return res.status(400).send('must be logged in');
+  }
+  next();
+};
