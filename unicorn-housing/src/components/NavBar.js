@@ -10,8 +10,8 @@ const NavBar = () => {
 
     return (
         <div className="z-50 sticky top-0 w-full flex flex-row h-20 justify-between items-center align-middle text-black shadow-lg bg-rainbow bg-cover bg-no-repeat">
-            <div className="flex flex-row items-center h-20 pl-3 md:pl-1 md:w-72 w-48">
-                <ul class='flex'>
+            <div className="flex flex-row items-center h-20 ml-6 pl-6 md:pl-1 md:w-72 w-48">
+                <ul class='flex gap-4'>
                     <li>
                         <Link to='/home'>Home</Link>
                     </li>
@@ -36,8 +36,8 @@ const NavBar = () => {
                 <h1>Housing</h1>
             </div>
 
-            <div className="flex flex-row items-center h-20 pl-3 md:pl-1 md:w-72 w-48">
-                <ul class='flex'>
+            <div className="flex flex-row items-center h-20 pr-3 md:pr-1 md:w-72 w-48">
+                <ul class='flex gap-4'>
                     <li>
                         <Link to='/userlisting'>My Listings</Link>
                     </li>

@@ -5,6 +5,7 @@ import Login from './routes/Login';
 import Dashboard from './routes/Dashboard';
 import { Auth0Provider } from "@auth0/auth0-react";
 import "./index.css"
+import Post from './routes/Post';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: '/home',
     element: <Dashboard />,
+  },
+  {
+    path: '/post',
+    element: <Post />,
   },
 ]);
 
