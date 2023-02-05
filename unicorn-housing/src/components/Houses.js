@@ -105,10 +105,10 @@ const Houses = () => {
   return (
     <div>
       <div class='grid grid-cols-3 gap-8 m-4 p-3'>
-        {postings.map((val, index) => {
+        {postings.map((posting) => {
           return (
-            <Link to={`/listing/${val.id}`} element={<Listing />} key={index}>
-              <House val={val} index={index} />
+            <Link to={`/listing/${posting._id}`} element={<Listing />} key={posting._id}>
+              <House val={posting} index={posting._id} />
             </Link>
           );
         })}

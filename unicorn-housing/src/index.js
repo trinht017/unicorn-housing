@@ -18,11 +18,6 @@ const router = createBrowserRouter([
   },
   {
     path: '/listing/:id',
-    loader: async ({ request, params }) => {
-      return fetch(
-        `/fake/api/teams/${params.id}`,
-      );
-    },
     element: <Listing/>,
   }
 ]);
