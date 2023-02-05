@@ -3,7 +3,7 @@ import NavBar from '../components/NavBar';
 
 function Dashboard() {
     return (
-      <div class='bg bg-gray-700'>
+      <div class='bg- bg-violet-300'>
         <NavBar/>
         <Houses/>
       </div>

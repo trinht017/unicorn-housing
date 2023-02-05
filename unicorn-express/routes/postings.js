@@ -12,4 +12,6 @@ router.route('/images')
     .post(S3.uploadImages)
     .get(S3.listImages);
 
+router.route('/:id/edit');
+
 module.exports = router;
