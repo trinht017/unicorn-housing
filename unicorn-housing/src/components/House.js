@@ -8,7 +8,7 @@ const House = ({val}, index) => {
                 <img className='w-full rounded-t-lg' src={houseImg} alt='' />
             </div>
             <div class="p-2">
-                <p class="font-bold">${(val.price).toLocaleString()}</p>
+                <p class="font-bold">${(val.price).toLocaleString()}/month</p>
                 <div class="flex flex-row gap-3">
                     <p>{val.name}</p>
                     <p>|</p>

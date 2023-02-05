@@ -6,6 +6,7 @@ import Dashboard from './routes/Dashboard';
 import { Auth0Provider } from "@auth0/auth0-react";
 import "./index.css"
 import Post from './routes/Post';
+import Listing from './routes/Listing';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,15 @@ const router = createBrowserRouter([
     path: '/post',
     element: <Post />,
   },
+  {
+    path: '/listing/:id',
+    loader: async ({ request, params }) => {
+      return fetch(
+        `/fake/api/teams/${params.id}`,
+      );
+    },
+    element: <Listing/>,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

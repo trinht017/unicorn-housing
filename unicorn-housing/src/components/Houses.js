@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import House from './House.js'
+import Listing from '../routes/Listing.js'
 
 const Houses = () => {
   let list = [
@@ -79,7 +81,9 @@ const Houses = () => {
       <div class='grid grid-cols-3 gap-8 m-4 p-3'>
         {list.map((val, index) => {
           return (
-            <House val={val} index={index} />
+            <Link to={`/listing/${val.id}`} element={<Listing/>} key={index}>
+              <House val={val} index={index} />
+            </Link>
           )
         })}
       </div>
