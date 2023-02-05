@@ -69,7 +69,5 @@ app.use((err, req, res, next) => {
   return res.status(statusCode);
 });
 
-app.use('/postings', postingRoutes)
-
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`listening on port ${port}`));
