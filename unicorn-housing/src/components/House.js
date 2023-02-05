@@ -26,7 +26,7 @@ const House = ({val}, index) => {
     return (
         <div key={index} class="bg-white shadow-md shadow-slate-400 rounded-lg">
             <div >
-                <img className='w-full rounded-t-lg overflow-hidden' src={imageUrl} alt='' />
+                <img className='w-full rounded-t-lg h-80 object-cover' src={imageUrl} alt='' />
             </div>
             <div class="p-2">
                 <p class="font-bold">${(val.price).toLocaleString()}/month</p>
