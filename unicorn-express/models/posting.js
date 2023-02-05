@@ -5,9 +5,9 @@ const PostingSchema = new Schema({
   title: String,
   price: Number,
   description: String,
-  images: [String],
   address: String,
-  bedBath: String,
+  bed: Number,
+  bath: Number,
   author: String,
 });
 
