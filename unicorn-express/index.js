@@ -9,17 +9,17 @@ const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 const axios = require('axios');
 
-const verifyJwt = jwt.expressjwt({
-  secret: jwks.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: 'https://dev-ix13ko5ij4ojfhls.us.auth0.com/.well-known/jwks.json',
-  }),
-  audience: 'https://unicron-api.com',
-  issuer: process.env.ISSUER_BASE_URL,
-  algorithms: ['RS256'],
-});
+// const verifyJwt = jwt.expressjwt({
+//   secret: jwks.expressJwtSecret({
+//     cache: true,
+//     rateLimit: true,
+//     jwksRequestsPerMinute: 5,
+//     jwksUri: 'https://dev-ix13ko5ij4ojfhls.us.auth0.com/.well-known/jwks.json',
+//   }),
+//   audience: 'https://unicron-api.com',
+//   issuer: process.env.ISSUER_BASE_URL,
+//   algorithms: ['RS256'],
+// });
 
 const dbUrl = process.env.ATLAS_URI;
 mongoose.connect(dbUrl, {
@@ -36,13 +36,13 @@ db.once('open', () => {
 const app = express();
 app.use(cors());
 
-app.get('/chicken', (req, res) => {
-  res.send('hello from chicken');
-});
+// app.get('/chicken', (req, res) => {
+//   res.send('hello from chicken');
+// });
 
-app.get('/protected', (req, res) => {
-  res.send('protected chunk');
-});
+// app.get('/protected', (req, res) => {
+//   res.send('protected chunk');
+// });
 
 // const jwtCheck = auth({
 //   audience: 'https://unicron-api.com',
@@ -60,16 +60,16 @@ const postingRoutes = require('./routes/postings');
 app.use('/postings', postingRoutes);
 
 app.all('*', (req, res, next) => {
-  next(res.statusCode(404));
+  const error = new Error('not found');
+  error.status = 404;
+  next(error);
 });
 
 app.use((err, req, res, next) => {
-  const { statusCode = 500 } = err;
-  if (!err.message) err.message = 'Oh No, Someting Went Wrong!';
-  return res.status(statusCode);
+  const status = err.status || 500;
+  const message = err.message || 'Internal server error';
+  return res.status(status).send(message);
 });
-
-app.use('/postings', postingRoutes)
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`listening on port ${port}`));

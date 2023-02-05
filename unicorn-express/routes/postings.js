@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 let list = [
   {
     id: 1,
@@ -72,9 +73,24 @@ let list = [
     author: 'Lucas Boyer',
   },
 ];
-router.route('/').get((req, res) => {
-  res.json(list);
-});
+
+const catchAsync = require('../utils/catchAsync');
+const Posting = require('../models/posting');
+const postings = require('../controllers/postings');
+
+router
+  .route('/')
+  .get(catchAsync(postings.index))
+  .post(catchAsync(postings.createPosting));
+
+router.route('/deleteAll').delete(catchAsync(postings.deleteAllPosting));
+
+router
+  .route('/:id')
+  .get(catchAsync(postings.showPosting))
+  .put(catchAsync(postings.updatePosting))
+  .delete(catchAsync(postings.deletePosting));
+
 const S3 = require('../controllers/s3');
 
 //router.route('/').get();
@@ -84,7 +100,5 @@ const S3 = require('../controllers/s3');
 //router.route('/:id/edit');
 
 router.route('/images').post(S3.uploadImages).get(S3.listImages);
-
-router.route('/:id/edit');
 
 module.exports = router;
