@@ -17,7 +17,7 @@ const Listing = () => {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    });
 
 
     return (

@@ -47,7 +47,7 @@ const NavBar = () => {
                     )}
                     {isAuthenticated && (
                         <li>
-                            <Link to='/userlisting'>My Listings</Link>
+                            <Link to='/userListings'>My Listings</Link>
                         </li>
                     )}
                     {!isAuthenticated && (

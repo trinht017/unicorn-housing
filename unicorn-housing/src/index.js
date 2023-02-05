@@ -6,6 +6,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import './index.css';
 import Post from './routes/Post';
 import Listing from './routes/Listing';
+import UserListings from './routes/UserListings';
+import Account from './routes/Account';
 
 const router = createBrowserRouter([
   {
@@ -19,7 +21,15 @@ const router = createBrowserRouter([
   {
     path: '/listing/:id',
     element: <Listing/>,
-  }
+  },
+  {
+    path: '/userListings',
+    element: <UserListings />,
+  },
+  {
+    path: '/myAccount',
+    element: <Account />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -29,7 +39,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     // onRedirectCallback
     authorizationParams={{
       redirect_uri: window.location.origin,
-      audience: 'https://unicron-api.com',
+      audience: 'https://unicorn-api.com',
       scope: 'openid profile email',
     }}
 
