@@ -6,7 +6,8 @@ import { useState, useEffect } from 'react';
 import Listing from '../routes/Listing.js';
 
 const Houses = () => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated, loginWithRedirect } =
+    useAuth0();
 
   const [postings, setPostings] = useState([]);
 
@@ -19,11 +20,14 @@ const Houses = () => {
         //   },
         // });
         // await console.log(token);
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/postings`, {
-          // headers: {
-          //   authorization: `Bearer ${token}`,
-          // },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/postings`,
+          {
+            // headers: {
+            //   authorization: `Bearer ${token}`,
+            // },
+          }
+        );
         setPostings(response.data);
       } catch (error) {
         console.log(error);
@@ -37,15 +41,19 @@ const Houses = () => {
     <div>
       <div class='grid grid-cols-3 gap-8 m-4 p-3'>
         {postings.map((posting) => {
-          return (
-            <Link
-              to={`/listing/${posting._id}`}
-              element={<Listing />}
-              key={posting._id}
-            >
-              <House val={posting} index={posting._id} />
-            </Link>
-          );
+          if (isAuthenticated) {
+            return (
+              <Link
+                to={`/listing/${posting._id}`}
+                element={<Listing />}
+                key={posting._id}
+              >
+                <House val={posting} index={posting._id} />
+              </Link>
+            );
+          } else {
+            return <House val={posting} index={posting._id} />;
+          }
         })}
       </div>
     </div>
