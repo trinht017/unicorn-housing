@@ -13,7 +13,7 @@ const NavBar = () => {
       <div className='flex flex-row items-center ml-10'>
         <ul class='flex gap-4 text-lg'>
           <li>
-            <Link to='/home'>Home</Link>
+            <Link to='/'>Home</Link>
           </li>
           <li>
             <Link to='/post'>Post</Link>
