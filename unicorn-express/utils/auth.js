@@ -13,10 +13,10 @@ module.exports.verifyJwt = jwt({
   algorithms: ['RS256'],
 });
 
-const { auth } = require('express-oauth2-jwt-bearer');
+// const { auth } = require('express-oauth2-jwt-bearer');
 
-module.exports.jwtCheck = auth({
-  audience: 'https://unicorn-api.com',
-  issuerBaseURL: 'https://dev-ix13ko5ij4ojfhls.us.auth0.com/',
-  tokenSigningAlg: 'HS256',
-});
+// module.exports.jwtCheck = auth({
+//   audience: 'https://unicorn-api.com',
+//   issuerBaseURL: 'https://dev-ix13ko5ij4ojfhls.us.auth0.com/',
+//   tokenSigningAlg: 'HS256',
+// });

@@ -5,7 +5,7 @@ require('dotenv').config();
 const guard = require('express-jwt-permissions')();
 const cors = require('cors');
 const axios = require('axios');
-const { verifyJwt, jwtCheck } = require('./utils/auth');
+const { verifyJwt } = require('./utils/auth');
 
 const dbUrl = process.env.ATLAS_URI;
 mongoose.connect(dbUrl, {
@@ -25,6 +25,10 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // app.use(verifyJwt);
+
+app.get('/', (req, res) => {
+  res.sendStatus(200);
+});
 
 const postingRoutes = require('./routes/postings');
 app.use('/postings', postingRoutes);
