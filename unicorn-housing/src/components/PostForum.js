@@ -18,20 +18,10 @@ const PostForum = () => {
 
     const [uploadedFiles, setUploadedFiles] = useState([])
 
-    const convertToBase64 = (file) => {
-        return new Promise(resolve => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                resolve(reader.result);
-            }
-        })
-    }
-
     const handleUploadFiles = async (files) => {
-        const uploaded = [...uploadedFiles];
+        var uploaded = [];
         await files.forEach(async (file) => {
-            uploaded.push(await convertToBase64(file));
+            uploaded.push(file);
         })
         setUploadedFiles(uploaded);
     }
@@ -42,14 +32,28 @@ const PostForum = () => {
     }
 
     const handleChange = (event) => {
-        setListing({ ...listing, [event.target.name]: event.target.value, ["author"]: user.name });
+        setListing({ ...listing, [event.target.name]: event.target.value, "author": user.name });
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const res = await axios.post('http://localhost:3001/postings', listing);
-        console.log(res)
+        const postingID = res.data._id
+        const res2 = await axios.post('http://localhost:3001/postings/images', {"numImages":uploadedFiles.length, "postingID": postingID});
+        const s3SignedUploadUrls = res2.data;
+
+        for(var i = 0; i < uploadedFiles.length; i++){
+            var options = {
+                params: { Key: `${postingID}-${i+1}.png`, ContentType: uploadedFiles[i].type },
+                headers: { 'Content-Type': uploadedFiles[i].type }
+              };
+            try {
+                await axios.put(s3SignedUploadUrls[i], uploadedFiles[i], options)
+            } catch (error) {
+                console.log(error);
+            }
+        }
     };
 
     return (

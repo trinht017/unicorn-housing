@@ -8,7 +8,7 @@ module.exports.index = async (req, res) => {
 module.exports.createPosting = async (req, res) => {
   const posting = new Posting(req.body);
   await posting.save();
-  res.status(200).send();
+  res.status(200).send(posting);
 };
 
 module.exports.showPosting = async (req, res) => {

@@ -14,13 +14,15 @@ router.route('/')
 router.route('/deleteAll')
   .delete(catchAsync(postings.deleteAllPosting));
 
+router.route('/images')
+  .post(S3.uploadImages)
+
+router.route('/images/:id')
+  .get(S3.listImages);
+
 router.route('/:id')
   .get(catchAsync(postings.showPosting))
   .put(validatePosting, catchAsync(postings.updatePosting))
   .delete(catchAsync(postings.deletePosting));
-
-router.route('/images')
-  .post(S3.uploadImages)
-  .get(S3.listImages);
 
 module.exports = router;

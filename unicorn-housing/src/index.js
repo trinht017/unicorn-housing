@@ -34,7 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     // onRedirectCallback
     authorizationParams={{
       redirect_uri: window.location.origin,
-      audience: 'https://unicron-api.com',
+      audience: 'https://unicorn-api.com',
       scope: 'openid profile email',
     }}
 
