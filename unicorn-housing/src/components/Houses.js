@@ -10,7 +10,6 @@ const Houses = () => {
 
   const [postings, setPostings] = useState([]);
 
-  // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     const getHouses = async () => {
       try {
