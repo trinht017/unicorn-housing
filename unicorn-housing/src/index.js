@@ -1,19 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Login from './routes/Login';
 import Dashboard from './routes/Dashboard';
-import { Auth0Provider } from "@auth0/auth0-react";
-import "./index.css"
+import { Auth0Provider } from '@auth0/auth0-react';
+import './index.css';
 import Post from './routes/Post';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Login />,
-  },
-  {
-    path: '/home',
     element: <Dashboard />,
   },
   {
@@ -24,12 +19,19 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Auth0Provider
-    domain="dev-ix13ko5ij4ojfhls.us.auth0.com"
-    clientId="c8Rrespf6YP8ZUC8fER9oYxuLulGryfL"
+    domain='dev-ix13ko5ij4ojfhls.us.auth0.com'
+    clientId='cD25UP2jxVUSl5uYSN1J1viKfXW8WR1R'
+    // onRedirectCallback
     authorizationParams={{
-      redirect_uri: window.location.origin
+      redirect_uri: window.location.origin,
+      audience: 'https://unicron-api.com',
+      scope: 'openid profile email',
     }}
+
+    // redirecturi={window.location.origin}
+    // audience='https://unicron-api.com'
+    // scope='openid profile email'
   >
-      <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </Auth0Provider>
 );
