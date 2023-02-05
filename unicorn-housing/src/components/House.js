@@ -3,14 +3,16 @@ import houseImg from '../images/p-1.png'
 const House = ({val}, index) => {
    
     return (
-        <div key={index}>
+        <div key={index} class=" shadow-md shadow-slate-400 rounded-lg">
             <div >
-                <img src={houseImg} alt='' />
+                <img className='w-full rounded-t-lg' src={houseImg} alt='' />
             </div>
-            <div class="text-red-500">
-                <p >{val.price}</p>
-                <p>{val.category}</p>
-                <p>{val.name}</p>
+            <div class="p-2">
+                <p class="font-bold">{val.price}</p>
+                <div class="flex flex-row gap-10">
+                    <p>{val.category}</p>
+                    <p>{val.name}</p>
+                </div>
                 <p>{val.location} </p>
             </div>
         </div>

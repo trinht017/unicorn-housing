@@ -58,10 +58,9 @@ const Houses = () => {
     },
   ]
 
-
   return (
     <div>
-      <div class='grid grid-cols-3 gap-4'>
+      <div class='grid grid-cols-2 gap-8 m-4 p-3'>
         {list.map((val, index) => {
           return (
             <House val={val} index={index} />

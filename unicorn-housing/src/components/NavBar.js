@@ -9,9 +9,9 @@ const NavBar = () => {
     const { logout } = useAuth0();
 
     return (
-        <div className="z-50 sticky top-0 w-full flex flex-row h-20 justify-between items-center align-middle text-black shadow-lg bg-rainbow bg-cover bg-no-repeat">
-            <div className="flex flex-row items-center h-20 ml-6 pl-6 md:pl-1 md:w-72 w-48">
-                <ul class='flex gap-4'>
+        <div className=" z-50 sticky top-0 w-full flex flex-row h-20 justify-between items-center align-middle text-black shadow-lg bg-rainbow bg-cover bg-no-repeat">
+            <div className="flex flex-row items-center ml-10">
+                <ul class='flex gap-4 text-lg'>
                     <li>
                         <Link to='/home'>Home</Link>
                     </li>
@@ -29,15 +29,15 @@ const NavBar = () => {
 
             <div onClick={() => {
                 navigate("/home");
-            }} className="flex text-bold text-xl md:text-4xl align-middle cursor-pointer">
+            }} className="flex -ml-28 text-bold text-xl md:text-4xl cursor-pointer">
 
                 <h1>Unicorn</h1>
                 <img class="h-12 w-12" src={unicornLogo} alt="" />
                 <h1>Housing</h1>
             </div>
 
-            <div className="flex flex-row items-center h-20 pr-3 md:pr-1 md:w-72 w-48">
-                <ul class='flex gap-4'>
+            <div className="flex flex-row items-center mr-10">
+                <ul class='flex gap-4 text-lg'>
                     <li>
                         <Link to='/userlisting'>My Listings</Link>
                     </li>
