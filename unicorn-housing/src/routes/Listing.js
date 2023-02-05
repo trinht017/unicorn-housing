@@ -14,7 +14,7 @@ const Listing = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3001/postings/${id}`)
+            .get(`${process.env.REACT_APP_API_URL}/postings/${id}`)
             .then((res) => {
                 setVal(res.data);
             })
@@ -22,7 +22,7 @@ const Listing = () => {
                 console.log(error);
             });
         axios
-            .get(`http://localhost:3001/postings/images/${id}`)
+            .get(`${process.env.REACT_APP_API_URL}/postings/images/${id}`)
             .then((res) => {
                 if(res.data != ""){
                     setImageUrls(res.data)
@@ -43,7 +43,7 @@ const Listing = () => {
                 },
             });
             const res = await axios
-            .delete(`http://localhost:3001/postings/${id}`, {
+            .delete(`${process.env.REACT_APP_API_URL}/postings/${id}`, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 }

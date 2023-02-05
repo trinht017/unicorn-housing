@@ -2,7 +2,6 @@ import placeholder from '../images/placeholder.png'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-
 const House = ({val}, index) => {
     const [imageUrl, setImageUrl] = useState(undefined)
 
@@ -10,7 +9,7 @@ const House = ({val}, index) => {
         console.log(imageUrl)
         if (imageUrl === undefined){
             axios
-                .get(`http://localhost:3001/postings/images/${val._id}-1.png`)
+                .get(`${process.env.REACT_APP_API_URL}/postings/images/${val._id}-1.png`)
                 .then((res) => {
                     if(res.data != ""){
                         setImageUrl(res.data)
@@ -27,7 +26,7 @@ const House = ({val}, index) => {
     return (
         <div key={index} class="bg-white shadow-md shadow-slate-400 rounded-lg">
             <div >
-                <img className='w-full rounded-t-lg' src={imageUrl} alt='' />
+                <img className='w-full rounded-t-lg overflow-hidden' src={imageUrl} alt='' />
             </div>
             <div class="p-2">
                 <p class="font-bold">${(val.price).toLocaleString()}/month</p>

@@ -19,7 +19,7 @@ const Houses = () => {
         //   },
         // });
         // await console.log(token);
-        const response = await axios.get('http://localhost:3001/postings', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/postings`, {
           // headers: {
           //   authorization: `Bearer ${token}`,
           // },

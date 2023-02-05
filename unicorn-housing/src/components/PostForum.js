@@ -47,14 +47,14 @@ const PostForum = () => {
                     audience: 'https://unicorn-api.com',
                 },
             });
-            const res = await axios.post('http://localhost:3001/postings', listing, {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/postings`, listing, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 },
             });
             console.log(res)
             const postingID = res.data._id
-            const res2 = await axios.post('http://localhost:3001/postings/images', {"numImages":uploadedFiles.length, "postingID": postingID}, { headers: {
+            const res2 = await axios.post(`${process.env.REACT_APP_API_URL}/postings/images`, {"numImages":uploadedFiles.length, "postingID": postingID}, { headers: {
                 authorization: `Bearer ${token}`,
             },});
             const s3SignedUploadUrls = res2.data;
