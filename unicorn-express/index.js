@@ -1,3 +1,4 @@
+const { application } = require('express');
 const express = require('express');
 const app = express();
 require('dotenv').config();
@@ -21,6 +22,10 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
+
+const postingRoutes = require('./routes/postings')
+
+app.use('/postings', postingRoutes)
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`listening on port ${port}`));
